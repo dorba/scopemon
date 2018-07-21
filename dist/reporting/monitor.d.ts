@@ -22,7 +22,7 @@ export declare class Monitor {
      * Creates a new monitor within the specified scope
      * @param context the context to scope to
      */
-    scopeTo(context: any): Monitor;
+    scopeTo(...contexts: any[]): Monitor;
     private isModule;
     private isClass;
     private isMethod;

@@ -47,29 +47,34 @@ export class Monitor {
    * Creates a new monitor within the specified scope
    * @param context the context to scope to
    */
-  scopeTo(context: any) {
-    if (!context) {
+  scopeTo(...contexts: any[]) {
+    if (!contexts) {
       return this;
     }
 
-    let scope = this._scope as AnyScope;
-    let childScope: AnyScope;
+    let previous: AnyScope;
+    let current = this._scope as AnyScope;
 
-    if (this.isModule(context)) {
-      childScope = scope.derive(new Scope.ModuleScope(context));
-    } else if (this.isClass(context) && 'class' in scope) {
-      childScope = scope.class(context);
-    } else if (this.isMethod(context) && 'method' in scope) {
-      childScope = scope.method(context);
-    } else if (this.isFunction(context) && 'function' in scope) {
-      childScope = scope.function(context);
+    for(let ctx of contexts) {
+      previous = current;
+      current = null;
+
+      if (this.isModule(ctx)) {
+        current = previous.derive(new Scope.ModuleScope(ctx));
+      } else if (this.isClass(ctx) && 'class' in previous) {
+        current = previous.class(ctx);
+      } else if (this.isMethod(ctx) && 'method' in previous) {
+        current = previous.method(ctx);
+      } else if (this.isFunction(ctx) && 'function' in previous) {
+        current = previous.function(ctx);
+      }
+
+      if (!current) {
+        throw new Error(`Monitor cannot scope from ${previous.constructor.name} to ${ctx}`);
+      }
     }
 
-    if (!childScope) {
-      throw new Error(`Monitor cannot scope from ${scope.constructor.name} to ${context}`);
-    }
-
-    return new Monitor(childScope, this._directors);
+    return new Monitor(current, this._directors);
   }
 
   private isModule(context: any) {

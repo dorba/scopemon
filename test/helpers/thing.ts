@@ -1,13 +1,11 @@
 import app from './app';
 import { Monitor } from '../../dist';
 
-const moduleMonitor = app.monitor.scopeTo(module);
-
 export class Thing {
   private monitor: Monitor;
 
   constructor() {
-    this.monitor = moduleMonitor.scopeTo(this);
+    this.monitor = app.monitor.scopeTo(module, this);
     this.monitor.report('test', 'created new Thing');
   }
 
