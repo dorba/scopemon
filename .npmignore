@@ -1,0 +1,18 @@
+# Logs
+.logs/
+*.log
+npm-debug.log*
+
+# Intermediate outputs
+.out/
+.tmp/
+test/
+lib/
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build dependencies
+tsconfig.json
+tsconfig.test.json
