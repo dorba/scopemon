@@ -1,20 +1,21 @@
-import { ModuleScope } from './module.scope';
+import { ScopeContext } from './context';
 
 /**
  * The execution scope of the monitor
  */
-export class MonitorScope<T=any> {
+export class MonitorScope {
   private _name: string;
-  private _context: T;
+  private _context: ScopeContext;
   private _parent: MonitorScope;
   private _root: MonitorScope;
+  private _path: string;
 
   /**
    * Creates a new scope
    * @param name the name of the scope
    * @param context optional context for the scope
    */
-  constructor(name: string, context?: T) {
+  constructor(name: string, context?: ScopeContext) {
     this._name = name;
     this._context = context || null;
   }
@@ -46,6 +47,20 @@ export class MonitorScope<T=any> {
     return this._root;
   }
 
+  /** Gets the full module path */
+  get path() {
+    if (!this._path) {
+      let names = [this.name];
+      let parent = this.parent;
+      while (parent) {
+        names.unshift(parent.name);
+        parent = parent.parent;
+      }
+      this._path = names.join('/');
+    }
+    return this._path;
+  }
+
   /**
    * Sets the parent of a scope to this scope
    * @param scope the child scope
@@ -54,13 +69,5 @@ export class MonitorScope<T=any> {
     scope._parent = this;
     scope._root = this.root;
     return scope;
-  }
-
-  /**
-   * Creates a new child module scope
-   * @param path the module path
-   */
-  module(path: string): ModuleScope {
-    return this.derive(new ModuleScope(path));
   }
 }

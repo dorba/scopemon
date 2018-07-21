@@ -1,24 +1,16 @@
+/// <reference types="node" />
 import { MonitorScope } from './monitor.scope';
 import { ClassScope } from './class.scope';
 import { FunctionScope } from './function.scope';
 /**
- * Represents a module scope context
- */
-export interface IModule {
-    /** The name of the module */
-    name: string;
-    /** The path of the module */
-    path: string;
-}
-/**
  * A module level scope
  */
-export declare class ModuleScope extends MonitorScope<IModule> {
+export declare class ModuleScope extends MonitorScope {
     /**
      * Creates a new module scope
-     * @param path the module path
+     * @param reference the node module instance
      */
-    constructor(path: string);
+    constructor(reference: NodeModule);
     /**
      * Creates a new child class scope
      * @param instance the class instance

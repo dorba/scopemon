@@ -15,7 +15,8 @@ class FunctionScope extends monitor_scope_1.MonitorScope {
         }
         let name = reference.name || 'anonymous';
         super(name, {
-            name, reference
+            type: 'function',
+            reference
         });
     }
     /**

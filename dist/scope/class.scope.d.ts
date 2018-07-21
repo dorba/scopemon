@@ -1,23 +1,14 @@
 import { MonitorScope } from './monitor.scope';
 import { MethodScope } from './method.scope';
 /**
- * Represents a class scope context
- */
-export interface IClass {
-    /** The class name */
-    name: string;
-    /** The class instance */
-    instance: any;
-}
-/**
  * A class level scope
  */
-export declare class ClassScope extends MonitorScope<IClass> {
+export declare class ClassScope extends MonitorScope {
     /**
      * Creates a new class scope
-     * @param instance the class instance
+     * @param reference the class instance
      */
-    constructor(instance: any);
+    constructor(reference: any);
     /**
      * Creates a new child method scope
      * @param reference the method reference

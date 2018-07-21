@@ -2,35 +2,24 @@ import { MonitorScope } from './monitor.scope';
 import { MethodScope } from './method.scope';
 
 /**
- * Represents a class scope context
- */
-export interface IClass {
-
-  /** The class name */
-  name: string;
-
-  /** The class instance */
-  instance: any;
-}
-
-/**
  * A class level scope
  */
-export class ClassScope extends MonitorScope<IClass> {
+export class ClassScope extends MonitorScope {
 
   /**
    * Creates a new class scope
-   * @param instance the class instance
+   * @param reference the class instance
    */
-  constructor(instance: any) {
-    if (!instance || !instance.constructor) {
+  constructor(reference: any) {
+    if (!reference || !reference.constructor) {
       throw new Error('ClassScope requires a valid class instance');
     }
 
-    let name = instance.constructor.name;
+    let name = reference.constructor.name;
 
     super(name, {
-      name, instance
+      type: 'class',
+      reference
     });
   }
 
@@ -39,6 +28,6 @@ export class ClassScope extends MonitorScope<IClass> {
    * @param reference the method reference
    */
   method(reference: Function): MethodScope {
-    return this.derive(new MethodScope(this.context.instance, reference));
+    return this.derive(new MethodScope(reference));
   }
 }

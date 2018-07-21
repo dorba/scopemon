@@ -8,19 +8,16 @@ const function_scope_1 = require("./function.scope");
 class MethodScope extends monitor_scope_1.MonitorScope {
     /**
      * Creates a new method scope
-     * @param container the containing class
      * @param reference the function handle
      */
-    constructor(container, reference) {
-        if (!container || !container.constructor) {
-            throw new Error('MethodScope requires a valid class instance');
-        }
+    constructor(reference) {
         if (!reference || typeof reference !== 'function') {
             throw new Error('MethodScope requires a valid function reference');
         }
         let name = reference.name;
         super(name, {
-            name, container, reference
+            type: 'method',
+            reference
         });
     }
     /**

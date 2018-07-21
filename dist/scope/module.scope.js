@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const path = require("path");
 const monitor_scope_1 = require("./monitor.scope");
 const class_scope_1 = require("./class.scope");
 const function_scope_1 = require("./function.scope");
@@ -9,22 +10,17 @@ const function_scope_1 = require("./function.scope");
 class ModuleScope extends monitor_scope_1.MonitorScope {
     /**
      * Creates a new module scope
-     * @param path the module path
+     * @param reference the node module instance
      */
-    constructor(path) {
-        if (!path) {
-            throw new Error('ModuleScope requires a path');
+    constructor(reference) {
+        if (!reference) {
+            throw new Error('ModuleScope requires a module');
         }
-        if (path[0] === '.') {
-            throw new Error('ModuleScope requires absolute paths');
-        }
-        if (!path.toLowerCase().endsWith('.js')) {
-            throw new Error('ModuleScope requires a fully qualified file path');
-        }
-        let name = path.split('/').pop();
+        let name = path.basename(reference.filename);
         name = name.substr(0, name.length - 3);
         super(name, {
-            name, path
+            type: 'module',
+            reference
         });
     }
     /**

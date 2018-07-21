@@ -1,21 +1,9 @@
 import { MonitorScope } from './monitor.scope';
 
 /**
- * Represents a function scope context
- */
-export interface IFunction {
-
-  /** The function name */
-  name: string;
-
-  /** The function handle */
-  reference: Function
-}
-
-/**
  * A function level scope
  */
-export class FunctionScope extends MonitorScope<IFunction> {
+export class FunctionScope extends MonitorScope {
 
   /**
    * Creates a new function scope
@@ -29,7 +17,8 @@ export class FunctionScope extends MonitorScope<IFunction> {
     let name = reference.name || 'anonymous';
 
     super(name, {
-      name, reference
+      type: 'function',
+      reference
     });
   }
 

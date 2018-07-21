@@ -8,15 +8,16 @@ const method_scope_1 = require("./method.scope");
 class ClassScope extends monitor_scope_1.MonitorScope {
     /**
      * Creates a new class scope
-     * @param instance the class instance
+     * @param reference the class instance
      */
-    constructor(instance) {
-        if (!instance || !instance.constructor) {
+    constructor(reference) {
+        if (!reference || !reference.constructor) {
             throw new Error('ClassScope requires a valid class instance');
         }
-        let name = instance.constructor.name;
+        let name = reference.constructor.name;
         super(name, {
-            name, instance
+            type: 'class',
+            reference
         });
     }
     /**
@@ -24,7 +25,7 @@ class ClassScope extends monitor_scope_1.MonitorScope {
      * @param reference the method reference
      */
     method(reference) {
-        return this.derive(new method_scope_1.MethodScope(this.context.instance, reference));
+        return this.derive(new method_scope_1.MethodScope(reference));
     }
 }
 exports.ClassScope = ClassScope;

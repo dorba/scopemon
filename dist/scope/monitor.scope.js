@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const module_scope_1 = require("./module.scope");
 /**
  * The execution scope of the monitor
  */
@@ -37,6 +36,19 @@ class MonitorScope {
         }
         return this._root;
     }
+    /** Gets the full module path */
+    get path() {
+        if (!this._path) {
+            let names = [this.name];
+            let parent = this.parent;
+            while (parent) {
+                names.unshift(parent.name);
+                parent = parent.parent;
+            }
+            this._path = names.join('/');
+        }
+        return this._path;
+    }
     /**
      * Sets the parent of a scope to this scope
      * @param scope the child scope
@@ -45,13 +57,6 @@ class MonitorScope {
         scope._parent = this;
         scope._root = this.root;
         return scope;
-    }
-    /**
-     * Creates a new child module scope
-     * @param path the module path
-     */
-    module(path) {
-        return this.derive(new module_scope_1.ModuleScope(path));
     }
 }
 exports.MonitorScope = MonitorScope;
