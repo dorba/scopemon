@@ -1,6 +1,6 @@
 {
   "name": "scopemon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scoped execution monitoring for Node.js",
   "keywords": [
     "node", "nodejs", "monitoring", "tracing", "logging", "typescript"
