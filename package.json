@@ -1,5 +1,5 @@
 {
-  "name": "jemal",
+  "name": "scopemon",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dorba/jemal.git"
+    "url": "git+https://github.com/dorba/scopemon.git"
   },
   "author": "Barry Dorman",
   "license": "MIT",

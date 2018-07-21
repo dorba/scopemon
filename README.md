@@ -1,2 +1,2 @@
-# jemal
-javascript execution monitoring and logging
+# scopemon
+Scoped execution monitoring for Node.js
