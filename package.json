@@ -1,7 +1,10 @@
 {
   "name": "scopemon",
   "version": "1.0.0",
-  "description": "",
+  "description": "Scoped execution monitoring for Node.js",
+  "keywords": [
+    "node", "nodejs", "monitoring", "tracing", "logging", "typescript"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
