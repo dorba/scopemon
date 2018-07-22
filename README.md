@@ -11,7 +11,8 @@ yarn add scopemon
 ```
 
 ## Getting started
-_note all code samples are in Typescript_
+_Note: all code samples are in Typescript_
+
 Create a root monitor for your service or app:
 ```
 import { Monitor } from 'scopemon';
@@ -49,11 +50,11 @@ const testModuleMonitor = app.monitor.scopeTo(module); // scoped to node module
 
 class Test {
   protected monitor = testModuleMonitor.scopeTo(this);
-  
+
   tryIt() {
     // class scoped report
     this.monitor.report('enter-method', {/* data */ });
-    
+
     // or scope to this method, so that 'tryIt' method
     // is captured as part of the report context
     const monitor = this.monitor.scopeTo(this.tryIt);
