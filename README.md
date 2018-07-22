@@ -14,7 +14,7 @@ yarn add scopemon
 _Note: all code samples are in Typescript_
 
 Create a root monitor for your service or app:
-```
+```typescript
 import { Monitor } from 'scopemon';
 
 export class AppContext {
@@ -30,19 +30,16 @@ export class AppContext {
 }
 ```
 And use the monitor elsewhere
-```
+```typescript
 import { AppContext } from './app-context';
 
 const app = new AppContext();
-
-// app level report, using a topic of 'topic',
-// and report data as the string 'hello'
 app.monitor.report('topic', 'hello');
 ```
 
 ## Scoping the monitor
 Monitors should be scoped to a specific context, for example a class or method within a class:
-```
+```typescript
 import { AppContext } from './app-context';
 
 const app = new AppContext();
@@ -53,7 +50,7 @@ class Test {
 
   tryIt() {
     // class scoped report
-    this.monitor.report('enter-method', {/* data */ });
+    this.monitor.report('enter-method', {/* data */});
 
     // or scope to this method, so that 'tryIt' method
     // is captured as part of the report context
@@ -71,10 +68,10 @@ Scopes can only change in the following ways:
 
 ## Creating a director
 In order to take action on monitor events, you'll need to create a director:
-```
+```typescript
 import { Director, Scope } from 'scopemon';
 
-// create a directory class extending from the base
+// create a director class extending from the base
 // MyDirector will expect to receive data of type 'string'
 export class MyDirector extends Director<string> {
 
@@ -105,7 +102,7 @@ Creates a new root monitor
 * returns - a new `Monitor` instance
 
 Example usage:
-```
+```javascript
 const myMonitor = new Monitor('myApp', []);
 ```
 
@@ -116,7 +113,7 @@ Sends a report to listening directors
 * returns - `void`
 
 Example usage:
-```
+```javascript
 monitor.report('log', 'something happened');
 ```
 
@@ -126,7 +123,7 @@ Creates a new monitor scoped to the provided context
 * returns - a new `Monitor` instance
 
 Example usage:
-```
+```javascript
 const moduleMonitor = monitor.scopeTo(module); // inside a node module
 const classMonitor = moduleMonitor.scopeTo(this); // inside a class
 
@@ -142,7 +139,7 @@ Called from derived class to set the topics
 * return - `void`
 
 Example usage:
-```
+```javascript
 constructor() {
   super(['topic1', 'topic2']);
 }
@@ -156,7 +153,7 @@ Called when a monitor reports on a topic accepted by the director
 * returns - `void`
 
 Example usage:
-```
+```javascript
 receive(topic: string, info: string, scope: Scope) {
   // receive reports and handle them here
   console.log(`new message from ${scope.path}: ${info}`);
