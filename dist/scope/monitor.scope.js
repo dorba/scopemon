@@ -11,15 +11,20 @@ class MonitorScope {
      */
     constructor(name, context) {
         this._name = name;
-        this._context = context || null;
+        this._type = context ? context.type : 'global';
+        this._reference = context ? context.reference : null;
+    }
+    /** Gets the scope type */
+    get type() {
+        return this._type;
+    }
+    /** Gets a reference to the object associated with the scope */
+    get reference() {
+        return this._reference;
     }
     /** Gets the name of the scope */
     get name() {
         return this._name;
-    }
-    /** Gets the scope context */
-    get context() {
-        return this._context;
     }
     /** Gets the parent scope */
     get parent() {
