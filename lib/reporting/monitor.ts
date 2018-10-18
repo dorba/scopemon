@@ -60,7 +60,9 @@ export class Monitor {
       previous = current;
       current = null;
 
-      if (this.isModule(ctx)) {
+      if (typeof ctx === 'string') {
+        current = new Scope.MonitorScope(ctx);
+      } else if (this.isModule(ctx)) {
         current = previous.derive(new Scope.ModuleScope(ctx));
       } else if (this.isClass(ctx) && 'class' in previous) {
         current = previous.class(ctx);

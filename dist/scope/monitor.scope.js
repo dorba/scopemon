@@ -11,7 +11,7 @@ class MonitorScope {
      */
     constructor(name, context) {
         this._name = name;
-        this._type = context ? context.type : 'global';
+        this._type = context ? context.type : 'named';
         this._reference = context ? context.reference : null;
     }
     /** Gets the scope type */

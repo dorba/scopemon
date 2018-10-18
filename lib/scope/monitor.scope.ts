@@ -1,5 +1,5 @@
 
-type MonitorType = 'global' | 'module' | 'class' | 'method' | 'function';
+type MonitorType = 'named' | 'module' | 'class' | 'method' | 'function';
 
 /**
  * The execution scope of the monitor
@@ -22,7 +22,7 @@ export class MonitorScope {
     reference: any
   }) {
     this._name = name;
-    this._type = context ? context.type : 'global';
+    this._type = context ? context.type : 'named';
     this._reference = context ? context.reference : null;
   }
 
