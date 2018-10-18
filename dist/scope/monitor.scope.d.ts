@@ -1,4 +1,4 @@
-declare type MonitorType = 'global' | 'module' | 'class' | 'method' | 'function';
+declare type MonitorType = 'named' | 'module' | 'class' | 'method' | 'function';
 /**
  * The execution scope of the monitor
  */

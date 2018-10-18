@@ -59,6 +59,9 @@ class Monitor {
             else if (this.isFunction(ctx) && 'function' in previous) {
                 current = previous.function(ctx);
             }
+            else if (typeof ctx === 'string') {
+                current = new Scope.MonitorScope(ctx);
+            }
             if (!current) {
                 throw new Error(`Monitor cannot scope from ${previous.constructor.name} to ${ctx}`);
             }
