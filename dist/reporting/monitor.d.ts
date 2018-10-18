@@ -9,7 +9,8 @@ export declare class Monitor {
     private _directors;
     /**
      * Creates a new monitor
-     * @param name the monitor name
+     * @param from the scope to use, or a name for the root monitor
+     * @param directors an array of directors to receive reports
      */
     constructor(from: string | AnyScope, directors: Director[]);
     /**
