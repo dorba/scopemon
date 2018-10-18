@@ -1,11 +1,13 @@
-import { ScopeContext } from './context';
+
+type MonitorType = 'global' | 'module' | 'class' | 'method' | 'function';
 
 /**
  * The execution scope of the monitor
  */
 export class MonitorScope {
   private _name: string;
-  private _context: ScopeContext;
+  private _type: MonitorType;
+  private _reference: any;
   private _parent: MonitorScope;
   private _root: MonitorScope;
   private _path: string;
@@ -15,19 +17,28 @@ export class MonitorScope {
    * @param name the name of the scope
    * @param context optional context for the scope
    */
-  constructor(name: string, context?: ScopeContext) {
+  constructor(name: string, context?: {
+    type: MonitorType,
+    reference: any
+  }) {
     this._name = name;
-    this._context = context || null;
+    this._type = context ? context.type : 'global';
+    this._reference = context ? context.reference : null;
+  }
+
+  /** Gets the scope type */
+  get type() {
+    return this._type;
+  }
+
+  /** Gets a reference to the object associated with the scope */
+  get reference() {
+    return this._reference;
   }
 
   /** Gets the name of the scope */
   get name() {
     return this._name;
-  }
-
-  /** Gets the scope context */
-  get context() {
-    return this._context;
   }
 
   /** Gets the parent scope */
