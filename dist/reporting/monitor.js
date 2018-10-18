@@ -47,7 +47,10 @@ class Monitor {
         for (let ctx of contexts) {
             previous = current;
             current = null;
-            if (this.isModule(ctx)) {
+            if (typeof ctx === 'string') {
+                current = new Scope.MonitorScope(ctx);
+            }
+            else if (this.isModule(ctx)) {
                 current = previous.derive(new Scope.ModuleScope(ctx));
             }
             else if (this.isClass(ctx) && 'class' in previous) {
@@ -58,9 +61,6 @@ class Monitor {
             }
             else if (this.isFunction(ctx) && 'function' in previous) {
                 current = previous.function(ctx);
-            }
-            else if (typeof ctx === 'string') {
-                current = new Scope.MonitorScope(ctx);
             }
             if (!current) {
                 throw new Error(`Monitor cannot scope from ${previous.constructor.name} to ${ctx}`);
